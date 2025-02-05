@@ -11,7 +11,6 @@
       "forceConsistentCasingInFileNames": true,
       "noImplicitAny": false,
       "skipLibCheck": true,
-      "downlevelIteration": true, // ✅ Fixes Set<string> iteration issue
       "outDir": "./dist"
     },
     "include": ["./src/**/*", "index.ts"],
