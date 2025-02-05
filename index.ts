@@ -1,5 +1,5 @@
 import { Telegraf, Context, Markup, session } from 'telegraf';
-import dotenv from 'dotenv';
+import { config as dotEnvConfig } from 'dotenv';
 import { job, validators } from './chainwatcher';
 
 // Define the structure for session data
@@ -19,7 +19,7 @@ interface MyContext extends Context {
 }
 
 // Load environment variables
-dotenv.config();
+dotEnvConfig();
 
 // Start the chain watcher job
 job.start();
