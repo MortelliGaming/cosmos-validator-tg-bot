@@ -31,8 +31,6 @@ export const job = {
                 console.error('Error reading or parsing data.json:', error);
                 // If there's an error reading or parsing, we'll use an empty array
             }
-        } else {
-            console.log('data.json does not exist. Starting with an empty validators array.');
         }
 
         validators.push(...savedValidators);
@@ -54,10 +52,8 @@ async function checkLatestBlockForAllChains() {
                     const validatorSet = (await (await GetValidatorSet(blockChain.api)));
                     const chainValidators = validators.filter(v => v.chainId === chainId);
                     // alle zu dieser chain gehörenden validators durchgehen
-                    console.log(chainValidators)
                     for(let validator of chainValidators) {
                         const validatorMissedBlocks = (await (await GetValidatorSlashingInfos(blockChain.api, validator.consensusAddress)))?.val_signing_info?.missed_blocks_counter;
-                        console.log(validatorSet)
                         const validatorVotingPower = validatorSet.validators.find((v: any) => v.address === validator.consensusAddress)?.voting_power
 
                         if(validator.data.missedBlocksInSigningWindow !== Number(validatorMissedBlocks)) {
@@ -78,7 +74,6 @@ async function checkLatestBlockForAllChains() {
                                 bot.telegram.sendMessage(c, `INFO(${validator.consensusAddress}): New Voting Power: ${validatorVotingPower}`)
                             })
                         }
-                        console.log(validator)
                     }
                 }
             } catch {
